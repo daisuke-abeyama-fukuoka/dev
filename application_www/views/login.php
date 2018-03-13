@@ -1,16 +1,14 @@
 	<h1>ログインページ</h1>
         <?php
-        //エラー表示
-        echo form_open("main/login_validation");	//フォームを開く
-        echo validation_errors();		//バリデーションのエラー表示用
+        echo form_open("main/login_validation");
+        echo validation_errors();
         ?>
         <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
-        <?php 
+        <?php
         $formdata = ['name'=>'email',"type"=>"text","class"=>"form-control","id"=>"exampleInputEmail1","aria-describedby"=>"emailHelp","placeholder"=>"Enter email"];
         echo form_input($formdata,$this->input->post("email"));
         ?>
-        <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
         </div>
         <div class="form-group">
         <label for="exampleInputPassword1">Password</label>

@@ -1,0 +1,13 @@
+
+RewriteEngine on
+RewriteCond $1 !^(index\.php|assets|works|dl|gallery|robots\.txt|\.well-known)
+
+# 管理画面用
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^admin(/(.*))?$ admin.php/$2 [L]
+
+# 公開用
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
