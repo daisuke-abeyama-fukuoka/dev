@@ -3,13 +3,16 @@
         echo form_open("main/login_validation");
         echo validation_errors();
         ?>
+
         <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <?php
-        $formdata = ['name'=>'email',"type"=>"text","class"=>"form-control","id"=>"exampleInputEmail1","aria-describedby"=>"emailHelp","placeholder"=>"Enter email"];
-        echo form_input($formdata,$this->input->post("email"));
+        <label for="exampleInputID">ログインID</label>
+        <?php 
+        $loginiddata = ['name'=>'login_id',"type"=>"text","class"=>"form-control","id"=>"exampleInputID","placeholder"=>"LoginID"];
+        echo form_input($loginiddata,$this->input->post("login_id"));
         ?>
         </div>
+
+
         <div class="form-group">
         <label for="exampleInputPassword1">Password</label>
         <?php

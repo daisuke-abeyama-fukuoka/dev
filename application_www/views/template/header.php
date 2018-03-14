@@ -72,16 +72,11 @@ body {
     </nav>
  
     </header>
-            <div class="jumbotron">
-          <div class="container">
-            <h3>Main</h3>
-          </div> <!-- /container -->    
-        </div>
+
+ 
     
     
     <div class="container">
   <div class="row">
-    <div class="col-md-1">
-      
-    </div>
-          <div class="col-md-10">
+
+          <div class="col-12">

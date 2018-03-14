@@ -5,6 +5,22 @@
         echo validation_errors(); //バリデーションのエラー表示用
         ?>
         <div class="form-group">
+        <label for="exampleInputID">ログインID</label>
+        <?php 
+        $loginiddata = ['name'=>'login_id',"type"=>"text","class"=>"form-control","id"=>"exampleInputID","placeholder"=>"LoginID"];
+        echo form_input($loginiddata,$this->input->post("login_id"));
+        ?>
+        </div>
+        <!--
+        <div class="form-group">
+        <label for="exampleInputName">ユーザーネーム</label>
+        <?php 
+        //$namedata = ['name'=>'username',"type"=>"text","class"=>"form-control","id"=>"exampleInputName","placeholder"=>"ユーザー名"];
+        //echo form_input($namedata,$this->input->post("username"));
+        ?>
+        </div>
+        -->
+        <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
         <?php 
         $formdata = ['name'=>'email',"type"=>"text","class"=>"form-control","id"=>"exampleInputEmail1","aria-describedby"=>"emailHelp","placeholder"=>"Enter email"];
@@ -18,7 +34,7 @@
         $passdata = ['name'=>'password',"type"=>"password","class"=>"form-control","id"=>"exampleInputPassword1","placeholder"=>"Password"];
         echo form_password($passdata,"password");
         $spassdata = ['name'=>'cpassword',"type"=>"cpassword","class"=>"form-control","id"=>"exampleInputPassword1","placeholder"=>"確認用ぱ"];
-        echo form_password($spassdata,"cpassword");
+        //echo form_password($spassdata,"cpassword");
         ?>
         </div>
         <!--<button type="submit" class="btn btn-primary">Submit</button>-->

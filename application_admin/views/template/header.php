@@ -77,11 +77,7 @@ body {
     </nav>
  
     </header>
-            <div class="jumbotron">
-          <div class="container">
-            <h3>Admin</h3>
-          </div> <!-- /container -->    
-        </div>
+
     
     
     <div class="container">

@@ -14,4 +14,11 @@ class MY_Loader extends CI_Loader {
         $this->view('template/footer', $vars);
     endif;
     }
+    public function timestamp(){
+        //$this->load->helper('date');
+        //$datestring = '%Y-%m-%d %H:%i:%s';
+        //$time = time();
+        $date = date_create();
+        return date_format($date, 'Y-m-d H:i:s');
+    }
 }
