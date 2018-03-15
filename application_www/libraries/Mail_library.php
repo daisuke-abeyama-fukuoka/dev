@@ -4,11 +4,11 @@
  *
  * @author KyushuLab01
  */
-class Mail_library extends CI_Model
+class Mail_library
 {
-    const TYPE_OTHER                      = 0;    // その他
-    const TYPE_ERROR                      = 9;    // おおまかにエラーメール
-    const TYPE_CREATE_USER                = 10;   // ユーザ作成
+    const TYPE_OTHER        = 0;    // その他
+    const TYPE_ERROR        = 9;    // おおまかにエラーメール
+    const TYPE_CREATE_USER  = 10;   // ユーザ作成
     
     public static $types = [
         self::TYPE_OTHER                     => 'その他',
@@ -30,16 +30,16 @@ class Mail_library extends CI_Model
     protected $bcc;
     protected $subject;
     protected $message;
-    protected $layout = 'mail/_layout';
     protected $error;
     protected $print_debugger;
     
     function __construct() 
     {
-        $this->load->library('parser');
+        $this->CI =& get_instance();
+        $this->CI->load->library('parser');
         $this->type = self::TYPE_OTHER;
-        $this->title = $this->config->item('title');
-        $this->from  = $this->config->item('from_mail') ? $this->config->item('from_mail') : 'y.fujiki201803@gmail.com';
+        $this->title = 'テストメール';
+        $this->from  = $this->CI->config->item('from_mail') ? $this->CI->config->item('from_mail') : 'y.fujiki201803@gmail.com';
         $this->from_name = mb_encode_mimeheader($this->title, 'UTF-8', 'B');
     }
     
@@ -66,16 +66,8 @@ class Mail_library extends CI_Model
         return $this;
     }
     
-    public function layout($path)
+    public function message($message)
     {
-        $this->layout = $path;
-    }
-    
-    public function message($message, $data = null)
-    {
-        if(!is_null($data)) {
-            $message = $this->CI->_make_blade($this->layout, ['path' => $message, 'values' => $data]);
-        }
         $this->message = $message;
         return $this;
     }
@@ -104,22 +96,22 @@ class Mail_library extends CI_Model
             $this->message = $message;
         }
         
-        $this->load->library('email');
-        $this->email->from($this->from, $this->from_name);
-        $this->email->to($this->to);
+        $this->CI->load->library('email');
+        $this->CI->email->from($this->from, $this->from_name);
+        $this->CI->email->to($this->to);
         if($this->cc) {
-            $this->email->cc($this->cc);
+            $this->CI->email->cc($this->cc);
         }
         if($this->bcc) {
-            $this->email->bcc($this->bcc);
+            $this->CI->email->bcc($this->bcc);
         }
-        $this->email->subject($this->subject);
-        $this->email->message($this->message);
-        $this->email->set_wordwrap(false);
-        $result = $this->email->send(false);
+        $this->CI->email->subject($this->subject);
+        $this->CI->email->message($this->message);
+        $this->CI->email->set_wordwrap(false);
+        $result = $this->CI->email->send(false);
         
-        $this->error = $this->email->print_debugger();
-        $this->load->model('mail_log_model');
+        $this->error = $this->CI->email->print_debugger();
+        $this->CI->load->model('mail_log_model');
 
         $data = array(
             'status'  => $result ? Mail_log_model::STATUS_SUCCESS : Mail_log_model::STATUS_FAILED,
@@ -130,9 +122,9 @@ class Mail_library extends CI_Model
             'subject' => $this->subject,
             'message' => serialize($this->message),
             'error'   => serialize($this->error),
-            'created' => $this->load->timestamp()
+            'created' => date('Y-m-d H:i:s'),
         );
-        $this->mail_log_model->dbinsert($data);
+        $this->CI->mail_log_model->dbinsert($data);
         return $result;
     }
 }

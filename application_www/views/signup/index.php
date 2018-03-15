@@ -1,8 +1,8 @@
 <h1>会員登録ページ</h1>
-<?
-    echo form_open("main/signup_validation");
-    echo validation_errors();
-?>
+<?if($message):?>
+<div class='alert alert-danger'><?=$message?></div>
+<?endif?>
+<?= form_open("signup/valid") ?>
 <div class="form-group">
     <label for="exampleInputID">ログインID</label>
     <?
