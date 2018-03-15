@@ -1,10 +1,16 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class User extends CI_Controller {
-    public function index(){
+    public function index($name){
         //ログイン後のメンバーページ
             //redirect ("main/restricted");
-
+        var_dump($this->session->userdata("login_id"));
+        
+        if($this->session->userdata("login_id") == $name){
+            $query = $this->db->get_where('user', array('name' => $name), $limit, $offset);
+            var_dump($query);
+        }
+        /*
         if($this->session->userdata("is_logged_in")){
             $login_id = $this->session->userdata("login_id");
             $this->load->model("user_model");
@@ -13,6 +19,8 @@ class User extends CI_Controller {
         }else{
             redirect ("main/restricted");
         }
+        
+         */
 
     }
     public function com_regist_validation(){

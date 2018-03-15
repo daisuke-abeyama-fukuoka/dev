@@ -64,7 +64,7 @@ class Main extends CI_Controller {
     public function signup(){
         $this->load->template("signup");
     }
-//会員登録バリデーション
+    //会員登録バリデーション
     public function signup_validation(){
         $this->load->library("form_validation");
         //formのバリエーションルールを決める
@@ -86,8 +86,7 @@ class Main extends CI_Controller {
             $key=md5(uniqid());
             //type設定
             $this->mail_library->type(Mail_library::TYPE_CREATE_USER);
-            //送信元の情報
-            $this->mail_library->from("y.fujiki201803@gmail.com", "送信元");
+
             //送信先の設定
             $email = $this->input->post("email");
             $login_id = $this->input->post("login_id");
@@ -108,7 +107,7 @@ class Main extends CI_Controller {
             echo "<a href='".base_url('main/resister_user/').$key."' target='_blank'>本登録</a><br /><br />";
             $this->mail_library->message($message);
 
-                //ユーザーに確認メールを送信できた場合、ユーザーを temp_users DBに追加する
+            //ユーザーに確認メールを送信できた場合、ユーザーを temp_users DBに追加する
             if($this->temp_users_model->add_temp_users($key)){
                 if($this->mail_library->send()){
                     echo "ご登録いただいたメールアドレスに本登録メールを送信しました。ご確認お願い致します。";   
@@ -125,24 +124,24 @@ class Main extends CI_Controller {
             $this->load->template("signup");
         }
     }
-public function resister_user($key){
-    $this->load->model("temp_users_model");
+    public function resister_user($key){
+        $this->load->model("temp_users_model");
 
-    if($this->temp_users_model->is_valid_key($key)){
-        if($login_id = $this->temp_users_model->add_user($key)){	
-                echo "success";
-                $data = array(
-                    //"email" => $newemail,
-                    "login_id"     => $login_id,
-                    "is_logged_in" => 1
-                );
-                $this->session->set_userdata($data);
-                redirect ("user");
+        if($this->temp_users_model->is_valid_key($key)){
+            if($login_id = $this->temp_users_model->add_user($key)){	
+                    echo "success";
+                    $data = array(
+                        //"email" => $newemail,
+                        "login_id"     => $login_id,
+                        "is_logged_in" => 1
+                    );
+                    $this->session->set_userdata($data);
+                    redirect ("user");
+            }else{
+                echo "fail to add user. please try again";
+            }
         }else{
-            echo "fail to add user. please try again";
+            echo "invalid key";
         }
-    }else{
-        echo "invalid key";
     }
-}
 }

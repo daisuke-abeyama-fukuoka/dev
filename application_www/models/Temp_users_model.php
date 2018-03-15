@@ -3,8 +3,8 @@
 class Temp_users_model extends CI_Model{
     public function add_temp_users($key){
         $data = array(
-            "login_id"     => $this->input->post("login_id"),
-            //"name"     => $this->input->post("username"),
+            "login_id" => $this->input->post("login_id"),
+            //"name"   => $this->input->post("username"),
             "email"    => $this->input->post("email"),
             "password" => md5($this->input->post("password")),
             "key"      => $key,
@@ -41,7 +41,7 @@ class Temp_users_model extends CI_Model{
             //$rowで取得した値のうち、必要な情報のみを取得する
             $data = array(
                 "login_id" => $row->login_id,
-                //"name"     => $row->name,
+                //"name"   => $row->name,
                 "email"    => $row->email,
                 "password" => $row->password,
                 "created"  => $this->load->timestamp(),

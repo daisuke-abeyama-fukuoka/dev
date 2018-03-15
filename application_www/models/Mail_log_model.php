@@ -107,7 +107,7 @@ class Mail_log_model extends CI_Model
         self::STATUS_FAILED  => 'label-danger',
     ];
     
-    //protected static $table = 'mail_log';
+    protected static $table = 'mail_log';
     protected static $is_updated_at = false;
 
     public function dbinsert($data)
